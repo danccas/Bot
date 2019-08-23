@@ -1,6 +1,6 @@
 # Bot
 
-
+```
 <?php
 /*
   Incluimos las librerias que usaremos en el proceso,
@@ -76,4 +76,5 @@ Bot::listen(1, $message);
   de lo contrario se creará conflictos en servicio.
 */
 Formity::delete('Ficha');
+```
 
