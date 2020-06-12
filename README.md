@@ -61,7 +61,7 @@ $queue->hears('opciones', function ($queue) {
   $queue->reply("mis opciones");
 });
 $queue->hears(function($n) {
-  return strpos($n->rtexto, 'hola') !== false;
+  return strpos($n->text, 'hola') !== false;
 }, function($queue) {
   $queue->reply('Hola! ¿En qué podemos ayudarte?');
 });
