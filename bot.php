@@ -92,7 +92,7 @@ class Bot {
       $ce->memory_mod = true;
     } else {
       $queue->message = $say;
-      if($say->rtexto == 'salir') {
+      if($say->text == 'salir') {
         $ce->memory['formity'] = $say_null;
         $ce->memory_mod = true;
         if(is_callable($ce->formitys[$key]['cancel'])) {
@@ -114,7 +114,7 @@ class Bot {
         $ce->memory_mod = true;
 
       } elseif($ce->memory['formity']['part'] == 1) {
-        $e = $field->setValue($say->rtexto);
+        $e = $field->setValue($say->text);
         $ce->memory_mod = true;
         if($e) {
           $queue->reply('Recibido, confirmalo con un "si"');
@@ -131,14 +131,14 @@ class Bot {
         }
 
       } elseif($ce->memory['formity']['part'] == 2) {
-        if($say->rtexto == 'si') {
+        if($say->text == 'si') {
           $ce->memory['formity']['part'] = 0;
           $ce->memory_mod = true;
           $field->confirm = true;
           $queue->reply('Confirmado!');
           continue;
 
-        } elseif($say->rtexto == 'no') {
+        } elseif($say->text == 'no') {
           $ce->memory['formity']['part'] = 0;
           $ce->memory_mod = true;
           $field->clear();
@@ -256,7 +256,7 @@ class BotQueue {
           if(!empty($rp)) {
             return $h['call']($this, $say, $rp);
           }
-        } elseif($h['format'] == $say->rtexto) {
+        } elseif($h['format'] == $say->text) {
           return $h['call']($this, $say, null);
         }
       }
