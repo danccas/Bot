@@ -1,5 +1,4 @@
 <?php
-/* Bot */
 class Bot {
   private $queues       = array();
   private $formitys     = array();
@@ -9,6 +8,10 @@ class Bot {
   public $memory_mod    = false;
 
   private static $instance = null;
+
+  public static function importRoute($route) {
+    return static::getInstance();
+  }
   public static function getInstance() {
     if(is_null(static::$instance)) {
       return static::$instance = new static();
@@ -72,6 +75,8 @@ class Bot {
   public static function evalFormity($key, $say = null) {
     $ce = Bot::getInstance();
     if(!isset($ce->formitys[$key])) {
+      $queue = BotQueue::getInstance($ce->memory['queue']);
+      $queue->reply('No se ha encontrado el formulario');
       return false;
     }
     $re = Formity::getInstance($key);
@@ -109,7 +114,7 @@ class Bot {
         $ce->memory_mod = true;
 
       } elseif($ce->memory['formity']['part'] == 1) {
-        $e = $field->setValue($say->texto);
+        $e = $field->setValue($say->rtexto);
         $ce->memory_mod = true;
         if($e) {
           $queue->reply('Recibido, confirmalo con un "si"');
